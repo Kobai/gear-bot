@@ -7,6 +7,7 @@ import ipdb
 STATS = ['attack', 'health', 'defense', 'effectiveness', 'effect resistance', 'critical hit chance', 'critical hit damage', 'speed']
 
 def fetch_ocr(url: str) -> str:
+    print(f'Making api call with url: {url}')
     payload = {
         'url': url,
         'apikey': 'K82384577388957',
@@ -18,6 +19,7 @@ def fetch_ocr(url: str) -> str:
         )
     res_json = json.loads(res.content.decode()) 
     raw_text = res_json['ParsedResults'][0]['ParsedText']
+    print(f'Received: {raw_text}')
     return raw_text
         
 def transform_raw_text(raw_text: str) -> pd.DataFrame:
@@ -47,9 +49,3 @@ def call_gear_score(url: str) -> str:
     except Exception as e:
         print(f"Error: {e}")
         return "Error: could not successfully calculate gear score"
-
-# x = call_gear_score('https://cdn.discordapp.com/attachments/401511634641616909/1039763797935652864/Screen_Shot_2022-11-08_at_10.28.35_PM.png')
-# print(x)
-# x = call_gear_score('https://cdn.discordapp.com/attachments/890411374893748266/1038863500375769239/image.png')
-# x = call_gear_score('https://cdn.discordapp.com/attachments/401511634641616909/1039765476177350706/unknown.png')
-# print(x)
