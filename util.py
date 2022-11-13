@@ -19,7 +19,7 @@ def fetch_ocr(url: str) -> str:
         )
     res_json = json.loads(res.content.decode()) 
     raw_text = res_json['ParsedResults'][0]['ParsedText']
-    print(f'Received: {raw_text}')
+    print(f'Received: {raw_text.replace('\n',',')}')
     return raw_text
         
 def transform_raw_text(raw_text: str) -> pd.DataFrame:
