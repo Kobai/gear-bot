@@ -1,5 +1,6 @@
 import discord
 import util
+import os
 
 client = discord.Client()
 
@@ -22,6 +23,5 @@ async def on_message(message):
 		url = message.attachments[0].url
 		await message.channel.send(util.call_gear_score(url))
 
-with open('secrets/token.txt', 'r') as f:
-	token = f.read()
+token = os.getenv('TOKEN')
 client.run(token)
