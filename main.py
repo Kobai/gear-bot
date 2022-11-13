@@ -14,6 +14,10 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 
+	if message.content.startswith('!rate ping'):
+		await message.channel.send('pong')
+
+	
 	if message.content.startswith('!rate gear'):
 		url = message.attachments[0].url
 		await message.channel.send(util.call_gear_score(url))
