@@ -1,0 +1,3 @@
+`!rate commands`: Fetch list of commands
+`!rate gear`: Fetches the gear score for a gear piece. Attach an image of the gear to the message
+`!rate guide`: Guide on how gear score works + how to use it

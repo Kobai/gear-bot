@@ -19,9 +19,15 @@ async def on_message(message):
 
 	if message.content.startswith('!rate ping'):
 		await message.channel.send('pong')
-
 	
-	if message.content.startswith('!rate gear image'):
+	if message.content.startswith('!rate commands'):
+		await message.channel.send(util.get_commands())
+
+	if message.content.startswith('!rate guide'):
+		await message.channel.send('https://artistalley7.com/blogs/guides/how-to-calculate-gear-score-in-epic-seven#explanation')
+
+
+	if message.content.startswith('!rate gear'):
 		url = message.attachments[0].url
 		await message.channel.send(util.call_gear_score(url))
 

@@ -6,6 +6,12 @@ import re
 
 STATS = ['attack', 'health', 'defense', 'effectiveness', 'effect resistance', 'critical hit chance', 'critical hit damage', 'speed']
 
+
+def get_commands():
+	with open('res/cmd_list.txt', 'r') as f:
+		return f.read()
+
+
 def fetch_ocr(url: str) -> str:
     print(f'Making api call with url: {url}')
     payload = {
@@ -22,6 +28,7 @@ def fetch_ocr(url: str) -> str:
     print(f'Received: {raw_text}')
     return raw_text
         
+
 def transform_raw_text(raw_text: str) -> pd.DataFrame:
     tokens = raw_text.lower().split('\n')
     tokens = [re.sub("^[^a-zA-Z0-9]+", "", token) for token in tokens]
@@ -33,6 +40,7 @@ def transform_raw_text(raw_text: str) -> pd.DataFrame:
     gear_df['values'] = gear_df['values'].str.rstrip("%").astype(float)
     return gear_df
 
+
 def calculate_gear_score(gear_df: pd.DataFrame) -> str:
     gear_score_df = pd.read_csv('res/gear_score.csv')
     gear_score_df['multiplier'] = gear_score_df['multiplier'].astype(float)
@@ -40,6 +48,7 @@ def calculate_gear_score(gear_df: pd.DataFrame) -> str:
     calc_df['score'] = calc_df.apply(lambda row: row['values']*row['multiplier'],axis=1)
     score = calc_df['score'].sum()
     return f'Your gear score is: {score}'
+
 
 def call_gear_score(url: str) -> str:
     try:
