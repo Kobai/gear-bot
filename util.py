@@ -1,7 +1,8 @@
 import requests
 import json
 import pandas as pd
-
+import pdb
+import re
 
 STATS = ['attack', 'health', 'defense', 'effectiveness', 'effect resistance', 'critical hit chance', 'critical hit damage', 'speed']
 
@@ -23,10 +24,10 @@ def fetch_ocr(url: str) -> str:
         
 def transform_raw_text(raw_text: str) -> pd.DataFrame:
     tokens = raw_text.lower().split('\n')
+    tokens = [re.sub("^[^a-zA-Z0-9]+", "", token) for token in tokens]
     while tokens[0] not in STATS:
         tokens = tokens[1:]
-    tokens = tokens[2:]
-    stats, nums = tokens[:len(tokens)//2],tokens[len(tokens)//2:]
+    stats, nums = tokens[1:len(tokens)//2],tokens[1+len(tokens)//2:]
     gear_df = pd.DataFrame({'stat':stats,'values':nums})
     gear_df['stat_type'] = gear_df.apply(lambda row: '%' if row['values'][-1]=='%' else 'flat', axis=1)
     gear_df['values'] = gear_df['values'].str.rstrip("%").astype(float)
