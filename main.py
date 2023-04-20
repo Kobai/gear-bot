@@ -26,7 +26,6 @@ async def on_message(message):
 	if message.content.startswith('!rate guide'):
 		await message.channel.send('https://artistalley7.com/blogs/guides/how-to-calculate-gear-score-in-epic-seven#explanation')
 
-
 	if message.content.startswith('!rate gear'):
 		url = message.attachments[0].url
 		await message.channel.send(util.call_gear_score(url))
